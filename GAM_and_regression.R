@@ -1,12 +1,11 @@
-movies <- read.csv("C:/Users/annac/OneDrive/Desktop/Modified_Movies.csv") 
+#upload the dataset given the file path
+movies <- read.csv("file_path.csv") 
 
 #if necessary:
-movies_original <- read.csv("file.csv", header = TRUE)
+movies_original <- read.csv("file_path.csv", header = TRUE)
 
 #check types of the first columns
 print(sapply(movies[, 1:11, drop = FALSE], class))
-
-#there are character type...
 
 #convert ReleaseDate in DATE type
 #install.packages("lubridate")
