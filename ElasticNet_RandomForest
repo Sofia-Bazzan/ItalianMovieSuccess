@@ -7,8 +7,6 @@ library(pROC)
 
 # Vector of alpha values to experiment with
 alpha_values <- c(0, 0.2, 0.5, 0.9, 1)
-## RIDGE:  ALPHA = 0
-## LASSO: ALPHA = 1
 
 # Create empty vectors to store results
 accuracy_values <- numeric(length(alpha_values))
@@ -16,7 +14,6 @@ precision_values <- numeric(length(alpha_values))
 recall_values <- numeric(length(alpha_values))
 f1_values <- numeric(length(alpha_values))
 auc_values <- numeric(length(alpha_values))
-
 
 coefficients_list <- list()
 models_list <- list()
@@ -57,16 +54,13 @@ for (i in seq_along(alpha_values)) {
   recall_values[i] <- recall
   f1_values[i] <- f1_score
   
-  print(conf_matrix)
-  
-  coef.est<- as.matrix(coef(model, s=model$lambda.min))
-  coef.vec <- subset(coef.est, coef.est !=0)  
+  coef.est <- as.matrix(coef(model, s=model$lambda.min))
+  coef.vec <- subset(coef.est, coef.est != 0)  
   
   coefficients_list[[paste0("coefficients_alpha_", a)]] <- subset(coef.est, coef.est != 0)
   
   result_df <- data.frame(Alpha = alpha_values, Accuracy = accuracy_values, Precision = precision_values, Recall = recall_values, F1 = f1_values, AUC = auc_values)
 }
-
 
 # Display results
 print(result_df)
@@ -78,10 +72,7 @@ ggplot(result_df, aes(x = Alpha, y = AUC)) +
        y = "AUC") +
   theme_minimal()
 
-
-
 model <- glmnet(model.matrix(Success ~ . - 1, data = train), train$Success, family = "binomial", alpha = 0.5)
-
 
 # Display coefficients 
 View(coefficients_list)
@@ -95,9 +86,7 @@ plot(models_list[[3]], xvar = "lambda", label = TRUE, xlim = c(-3.5, -1.5))  # A
 
 ####
 
-
 #### RANDOM FOREST ####
-#install.packages("randomForest")
 library(randomForest)
 
 # Specify the response as a factor with two levels in the randomForest function
