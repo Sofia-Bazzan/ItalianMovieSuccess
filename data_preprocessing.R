@@ -2,10 +2,11 @@
 ##### PROCESSING DATA #####
 #++++++++++++++++++++++++++
 
-movies <- read.csv("file.csv", header = TRUE)
+#upload the dataset given the file path
+movies <- read.csv("file_path.csv", header = TRUE)
 
 #if necessary:
-movies_original <- read.csv("file.csv", header = TRUE)
+movies_original <- read.csv("file_path.csv", header = TRUE)
 
 #check types of the first columns
 print(sapply(movies[, 1:11, drop = FALSE], class))
